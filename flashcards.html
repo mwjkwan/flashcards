@@ -95,13 +95,15 @@
                 constructor(props) {
                     super(props);
                     this.state = {
+                        is_front: true,
+                        index: 0
                     }
                 }
 
                 render() {
                     return (
                         <div>
-                            This is the viewer.
+                            <p>{this.props.cards[this.state.index].front}</p>
                             <hr/>
                             <button onClick={this.props.switchMode}>Go to Editor</button>
                         </div>
