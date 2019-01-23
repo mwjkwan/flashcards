@@ -21,6 +21,9 @@
             td, th {
                 padding: 10px;
             }
+            .card {
+                padding: 30px;
+            }
         </style>
     </head>
     <body>
@@ -95,19 +98,33 @@
                 constructor(props) {
                     super(props);
                     this.state = {
-                        is_front: true,
+                        isFront: true,
                         index: 0
                     }
                 }
 
                 render() {
+                    const display = this.state.isFront ? this.props.cards[this.state.index].front : this.props.cards[this.state.index].back;
                     return (
                         <div>
-                            <p>{this.props.cards[this.state.index].front}</p>
+                            <button class="card" onClick={this.flip}>{display}</button>
+                            <button onClick={this.nextCard}>Go to next</button>
                             <hr/>
                             <button onClick={this.props.switchMode}>Go to Editor</button>
                         </div>
                     )
+                }
+
+                nextCard = () => {
+                    this.setState(state => ({
+                        index: (state.index + 1)%(this.props.cards.length)
+                    }));
+                }
+
+                flip = () => {
+                    this.setState(state => ({
+                        isFront: ! state.isFront
+                    }));
                 }
             }
 
@@ -117,7 +134,8 @@
                     this.state = {
                         editor: true,
                         cards: [{front: "test front", back: "testback"},
-                            {front: "test front", back: "testback"}]
+                            {front: "test 2", back: "testback"},
+                            {front: "test 3", back: "testback"}]
                     }
                 }
                 render() {
